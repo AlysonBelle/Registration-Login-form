@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		The Nora Project
+	</title>
+</head>
+<body>
+	<h2>Welcome to the Nora Project</h2>
+	{% if 'username' not in session %}
+	<button type="button" onclick="window.location.href='{{ url_for('register') }}';">
+		Register
+	</button>
+	<br>
+	<br>
+	<button type="button" onclick="window.location.href='{{ url_for('login') }}';">
+		Login
+	</button>
+	{% else %}
+	<button type="button" onclick="window.location.href='{{ url_for('logout') }}';">
+		Logout
+	</button>
+	<button type="button" onclick="window.location.href='{{ url_for('user_profile') }}';">
+		Profile
+	</button>
+	{% endif %}
+</body>
+</html>

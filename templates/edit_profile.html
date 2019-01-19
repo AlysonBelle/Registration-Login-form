@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<title>
+		Edit Profile
+	</title>
+<style>
+	#hiding {
+		visibility: hidden;
+	}
+</style>
+</head>
+<body>
+	<p>{{ summary }}</p>
+	<div class='placeholder'>
+		<button type="button" class='trigger'>Trigger</button>
+		<button type='button' class='save' id='hiding'>Save</button>
+	</div>
+
+
+	<script>
+		$(document).ready(function(){
+
+			$('button.trigger').click(function() {
+				$('#to_remove').remove();
+				$('button.save').removeAttr('id')
+				var area = $('<form method="POST" id="forming" action="{{ url_for("edit_profile") }}">{{ form.csrf_token }}<textarea name="texta">Hello World</textarea>{{ form.save }}</form>');
+				$('div.placeholder').append(area);
+				$('button.trigger').hide();
+				$('button.save').show();
+			});
+
+			$('button.save').click(function() {
+				$('form').remove();
+				$('button.save').hide();
+				$('button.trigger').show();
+			});
+			
+		});
+	</script>
+
+
+</body>
+</html>

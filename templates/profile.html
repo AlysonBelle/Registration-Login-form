@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+
+	<h2>{{ first_name }} {{ last_name }}</h2>
+
+	<h2>Summary :</h2><br>
+	<h3>{{ summary }}</h3>
+	<br><br><br>
+	<h2>Botlist:</h2><br>
+	<button type="button" onclick="window.location.href='{{ url_for('edit_profile') }}';">Edit Profile</button>
+	<button type="logout" onclick="window.location.href='{{ url_for('logout') }}';">Logout</button>
+</div>
+{% endblock %}
