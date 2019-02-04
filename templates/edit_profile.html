@@ -12,33 +12,23 @@
 </style>
 </head>
 <body>
-	<p>{{ summary }}</p>
-	<div class='placeholder'>
-		<button type="button" class='trigger'>Trigger</button>
-		<button type='button' class='save' id='hiding'>Save</button>
-	</div>
+	<h2>Display Name:</h2>
+	<h3>{{ first_name }} {{ last_name }}</h3>
+
+	<h2>Email:</h2>
+	<form method="POST">
+		{{ EmailButton.csrf_token }}
+		<textarea name='emailarea'>{{ email }}</textarea>
+		{{ EmailButton.save }}
+	</form>
+	<h2>Summary: </h2>
+	<form method='POST'>
+		{{ SummaryButton.csrf_token }}
+		<textarea name='summarea'>{{ summary }}</textarea>
+		{{ SummaryButton.save }}
+	</form>
 
 
-	<script>
-		$(document).ready(function(){
-
-			$('button.trigger').click(function() {
-				$('#to_remove').remove();
-				$('button.save').removeAttr('id')
-				var area = $('<form method="POST" id="forming" action="{{ url_for("edit_profile") }}">{{ form.csrf_token }}<textarea name="texta">Hello World</textarea>{{ form.save }}</form>');
-				$('div.placeholder').append(area);
-				$('button.trigger').hide();
-				$('button.save').show();
-			});
-
-			$('button.save').click(function() {
-				$('form').remove();
-				$('button.save').hide();
-				$('button.trigger').show();
-			});
-			
-		});
-	</script>
 
 
 </body>

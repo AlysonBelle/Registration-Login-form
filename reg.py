@@ -28,6 +28,7 @@ app.config.from_object(Config)
 db 								= SQLAlchemy(app)
 migrate 						= Migrate(app, db)
 
+profile_picture_path 			= os.path.join(basedir, 'static', 'profile_pictures')
 login_user 						= None
 summary 						= None
 
@@ -46,6 +47,8 @@ class LogForm(Form):
 
 class SubmitButton(Form):
 	save 			= SubmitField('Save')
+
+
 
 
 
@@ -139,6 +142,7 @@ def login():
 
 
 
+
 def does_user_exist(email):
 	all_users = User.query.all()
 
@@ -159,26 +163,45 @@ def logout():
 	return render_template('logout.html')
 
 
+
+
 @app.route('/edit-profile', methods=['GET', 'POST'])
 def edit_profile():
 	SaveButton 		= SubmitButton()
+	EmailButton 	= SubmitButton()
+	SummaryButton 	= SubmitButton()
+
 	users 			= User.query.all()
 	user_profile 	= None
 
 	for user in users:
 		if session['username'] == user.email:
-			print('here')
 			user_profile = user.profile.query.all()
 			break 	
 
-	if request.method == 'POST' and SaveButton.validate_on_submit():
-		message = request.form['texta']
-		print('Message printed is ', message)
+
+	if SummaryButton.validate_on_submit() and request.method == 'POST':
+		print('here I am\n\n\n')
+		user_profile[0].summary = request.form['summarea']
+		db.session.add(user_profile[0])
+		db.session.commit()
+	else:
+
 		# add sql update
-	print('summar is ', user_profile[0].summary)
+		print('SQL statement error')
 	return render_template('edit_profile.html', 
 			form=SaveButton,
-			summary=user_profile[0].summary)
+			summary=user_profile[0].summary,
+			email=user_profile[0].email,
+			first_name=user.first_name,
+			last_name=user.last_name,
+			EmailButton=EmailButton,
+			SummaryButton=SummaryButton
+		)
+
+
+
+
 
 
 

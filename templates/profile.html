@@ -9,7 +9,10 @@
 	<h3>{{ summary }}</h3>
 	<br><br><br>
 	<h2>Botlist:</h2><br>
+
 	<button type="button" onclick="window.location.href='{{ url_for('edit_profile') }}';">Edit Profile</button>
-	<button type="logout" onclick="window.location.href='{{ url_for('logout') }}';">Logout</button>
+	<button type="button" onclick="window.location.href='{{ url_for('logout') }}';">Logout</button>
+	<button type="button" onclick="window.location.href='{{ url_for('home') }}';">Home</button>
+	
 </div>
 {% endblock %}
